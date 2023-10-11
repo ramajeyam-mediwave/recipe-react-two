@@ -1,0 +1,99 @@
+/* App.css */
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-image: url("https://img.freepik.com/vetores-premium/padrao-perfeito-de-fast-food-no-estilo-doodle_650511-939.jpg?w=2000"); /* Add your background image URL */
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+}
+.app {
+  max-width: 800px;
+  margin: 0 auto;
+
+  color: #fff;
+  border: 1px solid black;
+  box-shadow: 10px 10px 20px black;
+  background-color: rgba(29, 28, 34, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+}
+.add-recipe {
+  display: grid;
+}
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333; /* Dark text color */
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+nav li {
+  margin: 0 20px;
+}
+
+.recipe-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.recipe-card {
+  background-color: #fff;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); /* Slightly transparent shadow */
+  padding: 20px;
+  border-radius: 10px;
+  margin: 10px;
+  flex-basis: calc(33.33% - 20px);
+}
+
+.recipe-card img {
+  max-width: 100%;
+}
+
+.recipe-card h3 {
+  margin: 10px 0;
+  font-size: 18px;
+  color: #333; /* Dark text color */
+}
+
+.recipe-card p {
+  margin: 0;
+  color: #666; /* Slightly darker text color */
+}
+.form-group {
+  margin-bottom: 10px;
+}
+label {
+  display: block;
+}
+input[type="text"],
+textarea {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 16px;
+}
+button[type="submit"] {
+  background-color: grey;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 45%;
+}
