@@ -5,7 +5,7 @@ function AddRecipe({ addRecipe, submitFunc }) {
   const [recipeData, setRecipeData] = useState({
     imageUrl: "",
     name: "",
-    steps: [""],
+    steps: [{ id: uuidv4(), step: "" }],
   });
   const [formErrors, setFormErrors] = useState({
     imageUrl: "",
@@ -15,14 +15,14 @@ function AddRecipe({ addRecipe, submitFunc }) {
 
   const handleChange = (e, index) => {
     const updatedSteps = [...recipeData.steps];
-    updatedSteps[index] = e.target.value;
+    updatedSteps[index].step = e.target.value;
     setRecipeData({ ...recipeData, steps: updatedSteps });
   };
 
   const handleAddStep = () => {
     setRecipeData({
       ...recipeData,
-      steps: [...recipeData.steps, ""],
+      steps: [...recipeData.steps, { id: uuidv4(), step: "" }],
     });
   };
 
@@ -49,7 +49,7 @@ function AddRecipe({ addRecipe, submitFunc }) {
     }
 
     recipeData.steps.forEach((step, index) => {
-      if (!step) {
+      if (!step.step) {
         errors.steps[index] = "Step cannot be empty";
       }
     });
@@ -70,7 +70,11 @@ function AddRecipe({ addRecipe, submitFunc }) {
       existingRecipeCards.push({ ...recipeData, id: cardId });
 
       localStorage.setItem("recipeCards", JSON.stringify(existingRecipeCards));
-      setRecipeData({ imageUrl: "", name: "", steps: [""] });
+      setRecipeData({
+        imageUrl: "",
+        name: "",
+        steps: [{ id: uuidv4(), step: "" }],
+      });
       submitFunc(false);
     }
   };
@@ -108,23 +112,29 @@ function AddRecipe({ addRecipe, submitFunc }) {
         <div className="form-group">
           <label htmlFor="steps">Recipe Steps:</label>
           {recipeData.steps.map((step, index) => (
-            <div key={index} className="step-input">
+            <div key={step.id} className="step-input">
               <input
                 type="text"
-                id={`step-${uuidv4()}`}
+                id={`step-${index}`}
                 name={`step-${index}`}
-                value={step}
+                value={step.step}
                 onChange={(e) => handleChange(e, index)}
               />
               <div className="error">{formErrors.steps[index]}</div>
-              <button type="button" onClick={() => handleRemoveStep(index)}>
-                -
-              </button>
+              <div>
+                <button className="plus" type="button" onClick={handleAddStep}>
+                  +
+                </button>
+                <button
+                  className="minus"
+                  type="button"
+                  onClick={() => handleRemoveStep(index)}
+                >
+                  -
+                </button>
+              </div>
             </div>
           ))}
-          <button type="button" onClick={handleAddStep}>
-            +
-          </button>
         </div>
         <button type="submit">Submit</button>
       </form>

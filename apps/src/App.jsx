@@ -27,20 +27,24 @@ function App() {
     <div className="app">
       <nav>
         <ul>
-          <div>
+          <div className="Add">
             <button
+              id="Add"
               onClick={() => setShowAddRecipe(true)}
               className={showAddRecipe ? "active" : ""}
             >
               Add Recipe
             </button>
           </div>
-          <button
-            onClick={() => setShowAddRecipe(false)}
-            className={!showAddRecipe ? "active" : ""}
-          >
-            Home
-          </button>
+          <div className="Home">
+            <button
+              id="Home"
+              onClick={() => setShowAddRecipe(false)}
+              className={!showAddRecipe ? "active" : ""}
+            >
+              Home
+            </button>
+          </div>
         </ul>
       </nav>
       {showAddRecipe ? (

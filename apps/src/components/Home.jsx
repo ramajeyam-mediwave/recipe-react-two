@@ -10,7 +10,11 @@ function Home({ recipes }) {
             <img src={recipe.imageUrl} alt={recipe.name} />
             <div className="recipe-details">
               <h3>{recipe.name}</h3>
-              <p>{recipe.steps}</p>
+              <ul>
+                {recipe.steps.map((step, stepIndex) => (
+                  <li key={step.id}>{step.step}</li>
+                ))}
+              </ul>
             </div>
           </div>
         ))}
