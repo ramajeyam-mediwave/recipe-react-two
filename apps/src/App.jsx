@@ -28,29 +28,19 @@ function App() {
       <nav>
         <ul>
           <div>
-            <li>
-              <input
-                type="radio"
-                id="add-recipe"
-                name="view"
-                value="add-recipe"
-                checked={showAddRecipe}
-                onChange={() => setShowAddRecipe(true)}
-              />
-              <label htmlFor="add-recipe">Add Recipe</label>
-            </li>
+            <button
+              onClick={() => setShowAddRecipe(true)}
+              className={showAddRecipe ? "active" : ""}
+            >
+              Add Recipe
+            </button>
           </div>
-          <li>
-            <input
-              type="radio"
-              id="home"
-              name="view"
-              value="home"
-              checked={!showAddRecipe}
-              onChange={() => setShowAddRecipe(false)}
-            />
-            <label htmlFor="home">Home</label>
-          </li>
+          <button
+            onClick={() => setShowAddRecipe(false)}
+            className={!showAddRecipe ? "active" : ""}
+          >
+            Home
+          </button>
         </ul>
       </nav>
       {showAddRecipe ? (
