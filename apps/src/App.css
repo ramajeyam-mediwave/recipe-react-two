@@ -30,7 +30,7 @@ body {
 h1 {
   text-align: center;
   margin-bottom: 20px;
-  color: #333; /* Dark text color */
+  color: #333;
 }
 
 nav ul {
@@ -52,7 +52,7 @@ nav li {
 
 .recipe-card {
   background-color: #fff;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2); /* Slightly transparent shadow */
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
   padding: 20px;
   border-radius: 10px;
   margin: 10px;
@@ -67,12 +67,12 @@ nav li {
 .recipe-card h3 {
   margin: 10px 0;
   font-size: 18px;
-  color: #333; /* Dark text color */
+  color: #333;
 }
 
 .recipe-card p {
   margin: 0;
-  color: #666; /* Slightly darker text color */
+  color: #666;
 }
 .form-group {
   margin-bottom: 10px;
