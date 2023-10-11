@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { v4 as uuidv4 } from "uuid"; // Import the uuid function
+import { v4 as uuidv4 } from "uuid";
 
 function AddRecipe({ addRecipe, submitFunc }) {
   const [recipeData, setRecipeData] = useState({
@@ -26,6 +26,12 @@ function AddRecipe({ addRecipe, submitFunc }) {
     });
   };
 
+  const handleRemoveStep = (index) => {
+    const updatedSteps = [...recipeData.steps];
+    updatedSteps.splice(index, 1);
+    setRecipeData({ ...recipeData, steps: updatedSteps });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const errors = {
@@ -34,7 +40,6 @@ function AddRecipe({ addRecipe, submitFunc }) {
       steps: [],
     };
 
-    // Basic validation for required fields
     if (!recipeData.imageUrl) {
       errors.imageUrl = "Image URL is required";
     }
@@ -43,7 +48,6 @@ function AddRecipe({ addRecipe, submitFunc }) {
       errors.name = "Recipe Name is required";
     }
 
-    // Step validation
     recipeData.steps.forEach((step, index) => {
       if (!step) {
         errors.steps[index] = "Step cannot be empty";
@@ -52,12 +56,10 @@ function AddRecipe({ addRecipe, submitFunc }) {
 
     setFormErrors(errors);
 
-    // Check if there are validation errors
     if (
       Object.keys(errors).length === 0 ||
       errors.steps.every((error) => error === "")
     ) {
-      // Generate a unique ID for the recipe card using uuid
       const cardId = uuidv4();
 
       addRecipe({ ...recipeData, id: cardId });
@@ -65,7 +67,6 @@ function AddRecipe({ addRecipe, submitFunc }) {
       const existingRecipeCards =
         JSON.parse(localStorage.getItem("recipeCards")) || [];
 
-      // Add the unique ID to the recipe data before saving
       existingRecipeCards.push({ ...recipeData, id: cardId });
 
       localStorage.setItem("recipeCards", JSON.stringify(existingRecipeCards));
@@ -110,12 +111,15 @@ function AddRecipe({ addRecipe, submitFunc }) {
             <div key={index} className="step-input">
               <input
                 type="text"
-                id={`step-${uuidv4()}`} // Generate a unique ID for each step
+                id={`step-${uuidv4()}`}
                 name={`step-${index}`}
                 value={step}
                 onChange={(e) => handleChange(e, index)}
               />
               <div className="error">{formErrors.steps[index]}</div>
+              <button type="button" onClick={() => handleRemoveStep(index)}>
+                -
+              </button>
             </div>
           ))}
           <button type="button" onClick={handleAddStep}>
