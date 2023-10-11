@@ -1,35 +1,28 @@
 import React, { useState } from "react";
-
-function AddRecipe({ addRecipe }) {
+function AddRecipe({ addRecipe, submitFunc }) {
   const [recipeData, setRecipeData] = useState({
     imageUrl: "",
     name: "",
-    steps: "",
+    steps: [""], // Initialize steps as an array with an empty string
   });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setRecipeData({ ...recipeData, [name]: value });
+  const handleChange = (e, index) => {
+    const updatedSteps = [...recipeData.steps];
+    updatedSteps[index] = e.target.value;
+    setRecipeData({ ...recipeData, steps: updatedSteps });
   };
-
+  const handleAddStep = () => {
+    setRecipeData({ ...recipeData, steps: [...recipeData.steps, ""] });
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     addRecipe({ ...recipeData });
-
-    // Retrieve existing recipe cards from local storage
     const existingRecipeCards =
       JSON.parse(localStorage.getItem("recipeCards")) || [];
-
-    // Add the new recipe card to the existing cards
     existingRecipeCards.push({ ...recipeData });
-
-    // Save the updated cards to local storage
     localStorage.setItem("recipeCards", JSON.stringify(existingRecipeCards));
-
-    // Reset the form fields
-    setRecipeData({ imageUrl: "", name: "", steps: "" });
+    setRecipeData({ imageUrl: "", name: "", steps: [""] });
+    submitFunc(false);
   };
-
   return (
     <div className="add-recipe">
       <h2>Add Recipe</h2>
@@ -41,7 +34,9 @@ function AddRecipe({ addRecipe }) {
             id="imageUrl"
             name="imageUrl"
             value={recipeData.imageUrl}
-            onChange={handleChange}
+            onChange={(e) =>
+              setRecipeData({ ...recipeData, imageUrl: e.target.value })
+            }
           />
         </div>
         <div className="form-group">
@@ -51,22 +46,30 @@ function AddRecipe({ addRecipe }) {
             id="name"
             name="name"
             value={recipeData.name}
-            onChange={handleChange}
+            onChange={(e) =>
+              setRecipeData({ ...recipeData, name: e.target.value })
+            }
           />
         </div>
         <div className="form-group">
           <label htmlFor="steps">Recipe Steps:</label>
-          <textarea
-            id="steps"
-            name="steps"
-            value={recipeData.steps}
-            onChange={handleChange}
-          />
+          {recipeData.steps.map((step, index) => (
+            <div key={index} className="step-input">
+              <textarea
+                id={`step-${index}`}
+                name={`step-${index}`}
+                value={step}
+                onChange={(e) => handleChange(e, index)}
+              />
+            </div>
+          ))}
+          <button type="button" onClick={handleAddStep}>
+            Add Steps
+          </button>
         </div>
         <button type="submit">Submit</button>
       </form>
     </div>
   );
 }
-
 export default AddRecipe;

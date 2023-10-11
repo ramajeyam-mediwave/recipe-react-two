@@ -19,6 +19,9 @@ function App() {
     }
     return [];
   }
+  function submitFunc(boolean) {
+    setShowAddRecipe(boolean);
+  }
 
   return (
     <div className="app">
@@ -51,7 +54,7 @@ function App() {
         </ul>
       </nav>
       {showAddRecipe ? (
-        <AddRecipe addRecipe={addRecipe} />
+        <AddRecipe addRecipe={addRecipe} submitFunc={submitFunc} />
       ) : (
         <Home recipes={recipes} />
       )}
