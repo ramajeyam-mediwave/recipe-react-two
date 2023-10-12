@@ -47,11 +47,13 @@ function App() {
           </div>
         </ul>
       </nav>
-      {showAddRecipe ? (
-        <AddRecipe addRecipe={addRecipe} submitFunc={submitFunc} />
-      ) : (
-        <Home recipes={recipes} />
-      )}
+      <div className="home-form">
+        {showAddRecipe ? (
+          <AddRecipe addRecipe={addRecipe} submitFunc={submitFunc} />
+        ) : (
+          <Home recipes={recipes} />
+        )}
+      </div>
     </div>
   );
 }
