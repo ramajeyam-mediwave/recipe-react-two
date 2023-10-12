@@ -4,6 +4,7 @@ function Home({ recipes }) {
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [checkedSteps, setCheckedSteps] = useState({});
   const [isPopupOpen, setPopupOpen] = useState(false);
+  const [favoritedRecipes, setFavoritedRecipes] = useState([]);
 
   const handleImageClick = (index) => {
     setSelectedRecipe(recipes[index]);
@@ -20,6 +21,16 @@ function Home({ recipes }) {
       const updatedSteps = { ...checkedSteps };
       updatedSteps[stepId] = !updatedSteps[stepId];
       setCheckedSteps(updatedSteps);
+    }
+  };
+
+  const toggleFavorite = (recipe) => {
+    if (favoritedRecipes.includes(recipe)) {
+      setFavoritedRecipes(
+        favoritedRecipes.filter((favRecipe) => favRecipe !== recipe)
+      );
+    } else {
+      setFavoritedRecipes([...favoritedRecipes, recipe]);
     }
   };
 
@@ -52,6 +63,9 @@ function Home({ recipes }) {
           >
             <h3>{recipe.name}</h3>
             <img src={recipe.imageUrl} alt={recipe.name} />
+            <button onClick={() => toggleFavorite(recipe)}>
+              {favoritedRecipes.includes(recipe) ? "❤️" : "🤍"}
+            </button>
           </div>
         ))}
       </div>
@@ -78,15 +92,17 @@ function Home({ recipes }) {
                   </span>
                 </label>
               ))}
-              <img
-                className="popup-img"
-                src={selectedRecipe.imageUrl}
-                alt={selectedRecipe.name}
-              />
+              <div>
+                <img
+                  className="popup-img"
+                  src={selectedRecipe.imageUrl}
+                  alt={selectedRecipe.name}
+                />
+              </div>
+              <button className="close" onClick={clearSelectedRecipe}>
+                Close
+              </button>
             </div>
-            <button className="close" onClick={clearSelectedRecipe}>
-              Close
-            </button>
           </div>
         )}
       </div>
